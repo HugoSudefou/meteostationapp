@@ -1,0 +1,172 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Temperature",
+						"value": "datasources[\"temp\"][0][\"value\"]",
+						"units": "°C",
+						"min_value": 0,
+						"max_value": 100
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Lumière",
+						"value": "datasources[\"lum\"][0][\"value\"]",
+						"units": "",
+						"min_value": 0,
+						"max_value": 100
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"value": "datasources[\"lum\"][0][\"value\"]",
+						"on_text": "datasources[\"lum\"][0][\"value\"] > 54",
+						"off_text": "datasources[\"lum\"][0][\"value\"] < 55"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Humidité",
+						"value": "datasources[\"hum\"][0][\"value\"]",
+						"units": "%",
+						"min_value": 0,
+						"max_value": 100
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 11,
+				"4": 19
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "highcharts-timeseries",
+					"settings": {
+						"timeframe": 60,
+						"blocks": 4,
+						"chartType": "area",
+						"title": "Toutes les donnée",
+						"xaxis": "{\"title\":{\"text\" : \"Time\"}, \"type\": \"datetime\", \"floor\":0}",
+						"yaxis": "{\"title\":{\"text\" : \"Values\"}, \"minorTickInterval\":\"auto\", \"floor\":0}",
+						"series1": "datasources[\"temp\"][0][\"value\"]",
+						"series1label": "Temperature",
+						"series2": "datasources[\"lum\"][0][\"value\"]",
+						"series2label": "Lumière",
+						"series3": "datasources[\"hum\"][0][\"value\"]",
+						"series3label": "Humidité"
+					}
+				}
+			]
+		},
+		{
+			"title": "SUN & MOON MAP",
+			"width": 1,
+			"row": {
+				"3": 21,
+				"5": 37,
+				"6": 37,
+				"7": 37
+			},
+			"col": {
+				"3": 1,
+				"5": 1,
+				"6": 1,
+				"7": 1
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "var d = new Date();\nvar n = d.toISOString();\nvar ceUrl = \"https://www.timeanddate.com/scripts/sunmap.php?iso=\";\nreturn ceUrl+n;",
+						"refresh": 1200,
+						"height": 4
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "temp",
+			"type": "JSON",
+			"settings": {
+				"url": "http://192.168.43.226:3000/api/temperature",
+				"use_thingproxy": false,
+				"refresh": 5,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "lum",
+			"type": "JSON",
+			"settings": {
+				"url": "http://192.168.43.226:3000/api/luminosity",
+				"use_thingproxy": false,
+				"refresh": 5,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "hum",
+			"type": "JSON",
+			"settings": {
+				"url": "http://192.168.43.226:3000/api/humidity",
+				"use_thingproxy": false,
+				"refresh": 5,
+				"method": "GET"
+			}
+		}
+	],
+	"columns": 3
+}
